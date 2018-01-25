@@ -1,0 +1,18 @@
+{
+  "name": "url_shortener",
+  "version": "1.0.0",
+  "description": "freecodecamp url shortener full stack challenge",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zulfikri haqim",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.11"
+  }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="url_shortener">
+  <head>
+    <meta charset="utf-8">
+    <title>Url Shortener</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Francois+One|Orbitron|Righteous" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script type="text/javascript" src="angular.js"></script>
+  </head>
+  <body ng-controller="MainController">
+    <div class="">
+      <h1 align="center">make your url shorter!</h1>
+
+      <form class="form-group " align="center">
+        <div class="row input-group">
+          <div class="col-lg-3"></div>
+          <input class="form col-lg-6" type="text" ng-model="input.url" placeholder="www.example.com">
+          <span class="input-group-btn col-xs-1">
+            <button class="btn btn-primary" ng-click="getUrl()">SHORTEN</button>
+          </span>
+          <div class="col-lg-3"></div>
+        </div>
+
+      </form>
+
+      <div class="short-link-div" align="center">
+        <a ng-href="{{ shortUrl }}">{{ shortUrl }}</a>
+      </div>
+    </div>
+
+
+  </body>
+</html>

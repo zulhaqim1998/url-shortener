@@ -1,0 +1,31 @@
+html {
+  text-align: center;
+}
+
+.form {
+  width: 40vw;
+}
+h1 {
+  font-family: 'Righteous', cursive;
+  margin-top: 10%;
+  margin-bottom: 5vh;
+  font-size: 3.5em;
+}
+
+body {
+  background-color: #66b3ff;
+}
+input {
+  text-align: center;
+  font-family: 'Francois One', sans-serif;
+}
+
+a {
+  color: red;
+}
+.btn {
+  font-family: 'Orbitron', sans-serif;
+}
+span {
+  float: right;
+}

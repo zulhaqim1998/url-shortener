@@ -3,15 +3,17 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     app = express(),
-    config = require('./config.js'),
     path = require('path'),
     route = require('./routes/route.js'),
     Counter = require('./models/counter'),
     Url = require('./models/url'),
     converter = require('./converter.js');
 
+var db = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/url_shortener';
+var port = process.env.PORT || 8080;
+var host = 'http://localhost:' + port + '/';
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect(db || 'mongodb://' + config.db.host + '/' + config.db.name);
 mongoose.connection.on('connected', function(){
   console.log('Connected to database');
 });
@@ -30,8 +32,8 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.listen(3000, function(){
-  console.log('Server starting at localhost:3000');
+app.listen(port, function(){
+  console.log('Server starting at ' + port);
 });
 
 //Path routes
@@ -41,7 +43,7 @@ app.post('/api/shorten', function(req, res){
 
   Url.findOne({longUrl: longUrl}, function(err, url){
     if(url){
-      shortUrl = config.webhost + converter.encode(url._id);
+      shortUrl = host + converter.encode(url._id);
       res.send({ shortUrl: shortUrl });
     } else {
       var newUrl = Url({ longUrl: longUrl });
@@ -50,7 +52,7 @@ app.post('/api/shorten', function(req, res){
         if(err){
           return console.log(err);
         }
-        shortUrl = config.webhost + converter.encode(newUrl.id);
+        shortUrl = host + converter.encode(newUrl.id);
         res.send({ shortUrl: shortUrl });
       });
     }
@@ -58,18 +60,15 @@ app.post('/api/shorten', function(req, res){
 });
 
 app.get('/:code', function(req, res, next){
-  console.log('Code url: ' + code);
   var code = req.params.code;
   var id = converter.decode(code);
 
   Url.findOne({ _id: id }, function(err, url){
     if(url){
-      console.log('Url... : ' + url);
       return res.redirect(301, url.longUrl);
       next();
     } else {
-      console.log('long url not found!!!!');
-      res.redirect(301, config.webhost);
+      res.redirect(301, host);
       next();
     }
   });

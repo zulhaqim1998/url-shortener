@@ -42,7 +42,7 @@ app.post('/api/shorten', function(req, res){
 
   Url.findOne({longUrl: longUrl}, function(err, url){
     if(url){
-      shortUrl = req.headers.host + converter.encode(url._id);
+      shortUrl = 'https://cut-the-url.herokuapp.com/'  + converter.encode(url._id);
       res.send({ shortUrl: shortUrl });
     } else {
       var newUrl = Url({ longUrl: longUrl });
@@ -51,7 +51,7 @@ app.post('/api/shorten', function(req, res){
         if(err){
           return console.log(err);
         }
-        shortUrl = req.headers.host + converter.encode(newUrl.id);
+        shortUrl = 'https://cut-the-url.herokuapp.com/' + converter.encode(newUrl.id);
         res.send({ shortUrl: shortUrl });
       });
     }
@@ -67,7 +67,7 @@ app.get('/:code', function(req, res, next){
       return res.redirect(301, url.longUrl);
       next();
     } else {
-      res.redirect(301, req.headers.host);
+      res.redirect(301, 'https://cut-the-url.herokuapp.com/');
       next();
     }
   });

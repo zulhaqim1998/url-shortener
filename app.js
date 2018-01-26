@@ -11,7 +11,6 @@ var express = require('express'),
 
 var db = process.env.MONGOLAB_URI;
 var port = process.env.PORT || 8080;
-var host = 'http://localhost:' + port + '/';
 
 mongoose.connect(db);
 mongoose.connection.on('connected', function(){
@@ -43,7 +42,7 @@ app.post('/api/shorten', function(req, res){
 
   Url.findOne({longUrl: longUrl}, function(err, url){
     if(url){
-      shortUrl = host + converter.encode(url._id);
+      shortUrl = req.headers.host + converter.encode(url._id);
       res.send({ shortUrl: shortUrl });
     } else {
       var newUrl = Url({ longUrl: longUrl });
@@ -52,7 +51,7 @@ app.post('/api/shorten', function(req, res){
         if(err){
           return console.log(err);
         }
-        shortUrl = host + converter.encode(newUrl.id);
+        shortUrl = req.headers.host + converter.encode(newUrl.id);
         res.send({ shortUrl: shortUrl });
       });
     }
@@ -68,7 +67,7 @@ app.get('/:code', function(req, res, next){
       return res.redirect(301, url.longUrl);
       next();
     } else {
-      res.redirect(301, host);
+      res.redirect(301, req.headers.host);
       next();
     }
   });

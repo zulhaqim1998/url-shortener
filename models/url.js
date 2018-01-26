@@ -13,7 +13,7 @@ var urlSchema = new Schema({
 
 urlSchema.pre('save', function(next){
  var doc = this;
- Counter.findByIdAndUpdate({_id: 'url_count'}, { $inc: { seq: 1 } }, function(err, counter){
+ Counter.findByIdAndUpdate({_id: 'url_count'}, { $inc: { seq: 1 } }, {new: true}, function(err, counter){
    if(err){
      return next(err);
    }

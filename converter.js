@@ -6,7 +6,7 @@ function encode(num){
   while(num){
     let remainder = num % base;
     num = Math.floor(num / base);
-    encoded += alphabet[remainder].toString();
+    encoded = alphabet[remainder].toString() + encoded;
   }
   return encoded;
 }
@@ -17,7 +17,7 @@ function decode(code){
     var index = alphabet.indexOf(code[0]);
     var power = code.length - 1;
     decoded += index * Math.pow(base, power);
-    code = code.substring();
+    code = code.substring(1);
   }
   return decoded;
 }

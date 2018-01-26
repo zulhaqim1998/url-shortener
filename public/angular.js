@@ -8,6 +8,7 @@ app.controller('MainController', function($scope, $http){
     $http.post('/api/shorten', $scope.input)
       .success(function(data){
         $scope.shortUrl = data.shortUrl;
+        console.log("post success");
       })
       .error(function(err){
         console.log(err);

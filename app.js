@@ -20,7 +20,7 @@ mongoose.connection.on('error', function(err){
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended': 'true'}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('dev'));
 
@@ -57,15 +57,20 @@ app.post('/api/shorten', function(req, res){
   });
 });
 
-app.get('/:code', function(req, res){
+app.get('/:code', function(req, res, next){
+  console.log('Code url: ' + code);
   var code = req.params.code;
   var id = converter.decode(code);
 
   Url.findOne({ _id: id }, function(err, url){
     if(url){
-      res.redirect( url.longUrl );
+      console.log('Url... : ' + url);
+      return res.redirect(301, url.longUrl);
+      next();
     } else {
-      res.redirect(config.webhost);
+      console.log('long url not found!!!!');
+      res.redirect(301, config.webhost);
+      next();
     }
   });
 });

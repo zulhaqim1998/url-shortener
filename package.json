@@ -2,7 +2,7 @@
   "name": "url_shortener",
   "version": "1.0.0",
   "description": "freecodecamp url shortener full stack challenge",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

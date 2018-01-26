@@ -9,11 +9,11 @@ var express = require('express'),
     Url = require('./models/url'),
     converter = require('./converter.js');
 
-var db = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/url_shortener';
+var db = process.env.MONGOLAB_URI;
 var port = process.env.PORT || 8080;
 var host = 'http://localhost:' + port + '/';
 
-mongoose.connect(db || 'mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect(db);
 mongoose.connection.on('connected', function(){
   console.log('Connected to database');
 });
